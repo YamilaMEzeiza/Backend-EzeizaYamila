@@ -1,4 +1,9 @@
+//*Link a glitch:https://miniature-gregarious-salt.glitch.me
+
 const fs = require('fs')
+const express = require('express')
+
+
 
 class Contenedor {
     constructor(nombreArchivo) {
@@ -75,23 +80,51 @@ class Contenedor {
 
 
     const nuevoNombre = new Contenedor('./productos.txt');
-nuevoNombre.save({
+    
+
+/* nuevoNombre.save({
+
         tittle: "Sahumerios",
         price: 200,
         thumbnail: "sahumerios.jpg",
-    }/* ,
-      {
+    }).then(resolve=> {console.log(resolve)});
+
+     nuevoNombre.save({ 
             tittle: "Velas",
             price: 300,
             thumbnail: "velas.jpg",
-        },
-        {
+        }) .then(resolve=> {console.log(resolve)});
+        nuevoNombre.save({  
             tittle: "Barajas tarot",
             price: 2000,
             thumbnail: "barajas.jpg",
-        } */).then(resolve=> {console.log(resolve)})
+        } ).then(resolve=> {console.log(resolve)}) ; */
+    
+        const app=express()
+    const PORT = 8080;
+const server = app.listen(PORT, () => {
+    console.log(`http://localhost:${PORT}`)
+})
+
+server.on("error", error => console.log(`Error en  ${error}`))
+
+app.get('/', (req, res) => {
+    res.send("Inicio")
+})
+app.get('/productos',(req,res)=>{
+    
+        nuevoNombre.getAll().then(resolve => {
+            res.send(`Productos: ${JSON.stringify(resolve)}`)
+        });
+});
+app.get('/productoRandom', (req, res) => {
+    let aleatorio = 1 +Math.floor(Math.random() * 3) 
+    nuevoNombre.getById(aleatorio).then(resolve => {
+        res.end(`El producto random es: ${JSON.stringify(resolve)}`)
+    });
+})
 // nuevoNombre.getById(3).then(resolve=> {console.log(resolve)})
-nuevoNombre.getAll().then(resolve=> {console.log(resolve)})
+//nuevoNombre.getAll().then(resolve=> {console.log(resolve)})
 
    //nuevoNombre.deleteById(2)
    //nuevoNombre.deleteAll()

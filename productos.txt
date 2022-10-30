@@ -1,1 +1,1 @@
-[{"tittle":"Sahumerios","price":200,"thumbnail":"sahumerios.jpg","id":0}]
+[{"tittle":"Sahumerios","price":200,"thumbnail":"sahumerios.jpg","id":0},{"tittle":"Velas","price":300,"thumbnail":"velas.jpg","id":1},{"tittle":"Barajas tarot","price":2000,"thumbnail":"barajas.jpg","id":2}]
