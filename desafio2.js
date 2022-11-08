@@ -1,6 +1,60 @@
+const express = require('express');
+const app=express();
+
+const { Router } = express;
+const productosRouter = new Router();
+
+app.use("/static", express.static(__dirname + "public"))
+const PORT = process.env.PORT || 8080;
+const server = app.listen(PORT, () => {
+    console.log(`http://localhost:${PORT}`)
+})
+
+server.on("error", error => console.log(`Error en  ${error}`))
+productosRouter.use(express.json())
+
+const productos = []
+
+productosRouter.get("/", (req, res) => {
+    res.json(productos)
+})
+productosRouter.get("/:id", (req, res) => {
+    let id = parseInt(req.params.id);
+    let producto = productos.find((producto) => producto.id == id);
+    return producto
+})
+productosRouter.post("/", (req, res) => {
+    let producto = req.body;
+    if (productos.length != 0) {
+
+        let id = producto.length + 1;
+                producto.id = id;
+                productos.push(producto);
+    } else producto.id = 1;
+    productos.push(producto);
+    res.json(producto);
+})
+productosRouter.delete("/:id",(req,res)=>{
+    productos.splice(req.params.id - 1,1);
+    res.json(productos)
+})
+app.use("/productos",productosRouter);
+
+ app.use((req,res,next)=>{
+    res.sendStatus(404)
+}) 
+app.use("/api/productos", productosRouter);
+
+app.use('/static', express.static('/public'));
+
+
+
+
+
+
 //*Link a glitch:https://miniature-gregarious-salt.glitch.me
 
-const fs = require('fs')
+/* const fs = require('fs')
 const express = require('express')
 
 
@@ -100,7 +154,7 @@ class Contenedor {
             thumbnail: "barajas.jpg",
         } ).then(resolve=> {console.log(resolve)}) ; */
     
-        const app=express()
+      /*   const app=express()
     const PORT = 8080;
 const server = app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`)
@@ -121,11 +175,12 @@ app.get('/productoRandom', (req, res) => {
     let aleatorio = 1 +Math.floor(Math.random() * 3) 
     nuevoNombre.getById(aleatorio).then(resolve => {
         res.end(`El producto random es: ${JSON.stringify(resolve)}`)
-    });
-})
+    }) *//* ;
+}) */
 // nuevoNombre.getById(3).then(resolve=> {console.log(resolve)})
 //nuevoNombre.getAll().then(resolve=> {console.log(resolve)})
 
    //nuevoNombre.deleteById(2)
    //nuevoNombre.deleteAll()
 
+ 
