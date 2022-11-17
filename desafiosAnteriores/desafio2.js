@@ -5,12 +5,9 @@ const { Router } = express;
 const productosRouter = new Router();
 
 app.use("/static", express.static(__dirname + "public"))
-const PORT = process.env.PORT || 8080;
-const server = app.listen(PORT, () => {
-    console.log(`http://localhost:${PORT}`)
-})
 
-server.on("error", error => console.log(`Error en  ${error}`))
+
+
 productosRouter.use(express.json())
 
 const productos = []
@@ -47,10 +44,13 @@ app.use("/api/productos", productosRouter);
 
 app.use('/static', express.static('/public'));
 
+const PORT =  8080;
+const server = app.listen(PORT, () => {
+    console.log(`http://localhost:${PORT}`)
+}
+)
 
-
-
-
+server.on("error", error => console.log(`Error en  ${error}`))
 
 //*Link a glitch:https://miniature-gregarious-salt.glitch.me
 
